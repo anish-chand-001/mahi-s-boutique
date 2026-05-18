@@ -1,0 +1,160 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Mahi Sarees — Elegant Indian Boutique design system.
+ * Deep maroon / wine, gold, soft peach, warm cream.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-wine: var(--wine);
+  --color-peach: var(--peach);
+  --color-cream: var(--cream);
+  --color-whatsapp: var(--whatsapp);
+  --font-display: "Fraunces", "Baloo Bhai 2", serif;
+  --font-sans: "Poppins", "Mukta", system-ui, sans-serif;
+  --font-hindi: "Baloo Bhai 2", "Mukta", sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  /* Warm cream background */
+  --background: oklch(0.975 0.018 80);
+  --foreground: oklch(0.22 0.05 20);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.05 20);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.05 20);
+  /* Deep maroon / wine */
+  --primary: oklch(0.36 0.12 15);
+  --primary-foreground: oklch(0.98 0.02 80);
+  /* Soft peach */
+  --secondary: oklch(0.92 0.05 40);
+  --secondary-foreground: oklch(0.36 0.12 15);
+  --muted: oklch(0.94 0.02 70);
+  --muted-foreground: oklch(0.45 0.04 30);
+  /* Gold accent */
+  --accent: oklch(0.78 0.14 85);
+  --accent-foreground: oklch(0.22 0.05 20);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.04 60);
+  --input: oklch(0.88 0.04 60);
+  --ring: oklch(0.78 0.14 85);
+
+  --gold: oklch(0.78 0.14 85);
+  --wine: oklch(0.36 0.12 15);
+  --peach: oklch(0.88 0.07 35);
+  --cream: oklch(0.975 0.018 80);
+  --whatsapp: oklch(0.65 0.18 145);
+}
+
+.dark {
+  --background: oklch(0.18 0.04 20);
+  --foreground: oklch(0.97 0.02 80);
+  --card: oklch(0.24 0.06 18);
+  --card-foreground: oklch(0.97 0.02 80);
+  --popover: oklch(0.24 0.06 18);
+  --popover-foreground: oklch(0.97 0.02 80);
+  --primary: oklch(0.78 0.14 85);
+  --primary-foreground: oklch(0.22 0.05 20);
+  --secondary: oklch(0.32 0.08 20);
+  --secondary-foreground: oklch(0.97 0.02 80);
+  --muted: oklch(0.28 0.05 20);
+  --muted-foreground: oklch(0.75 0.04 60);
+  --accent: oklch(0.78 0.14 85);
+  --accent-foreground: oklch(0.22 0.05 20);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.97 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.78 0.14 85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .font-hindi {
+    font-family: var(--font-hindi);
+  }
+}
+
+@layer utilities {
+  .silk-bg {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--peach) 60%, transparent), transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, color-mix(in oklab, var(--gold) 30%, transparent), transparent 60%),
+      radial-gradient(700px 500px at 50% 110%, color-mix(in oklab, var(--wine) 18%, transparent), transparent 60%),
+      var(--cream);
+  }
+  .gold-gradient {
+    background: linear-gradient(135deg, #c9a24a 0%, #f3d27a 45%, #c9a24a 100%);
+  }
+  .text-gold-gradient {
+    background: linear-gradient(135deg, #b8862c 0%, #e7c573 50%, #b8862c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Floating silk wave keyframes */
+@keyframes silk-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -14px, 0) rotate(0.4deg); }
+}
+.animate-silk { animation: silk-float 9s ease-in-out infinite; }
+
+@keyframes soft-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--whatsapp) 55%, transparent); }
+  50% { box-shadow: 0 0 0 18px color-mix(in oklab, var(--whatsapp) 0%, transparent); }
+}
+.animate-wa-pulse { animation: soft-pulse 2.2s ease-out infinite; }
+
+@keyframes stitch {
+  to { stroke-dashoffset: 0; }
+}
