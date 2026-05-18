@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, products } from "@/lib/products";
+import { useLang } from "@/lib/lang";
 
 type Search = { cat?: string };
 
@@ -20,6 +21,8 @@ const priceBuckets = [
 
 function SareesPage() {
   const { cat } = Route.useSearch();
+  const { t, lang } = useLang();
+  const hi = lang === "hi";
   const [activeCat, setActiveCat] = useState<string | undefined>(cat);
   const [price, setPrice] = useState<string | undefined>();
 
@@ -36,31 +39,38 @@ function SareesPage() {
     <div className="mx-auto max-w-6xl px-4 py-10">
       <div>
         <span className="text-xs uppercase tracking-[0.25em] text-[color:var(--wine)]/70">
-          Collection
+          {t("कलेक्शन", "Collection")}
         </span>
-        <h1 className="font-display mt-2 text-4xl font-semibold text-[color:var(--wine)] sm:text-5xl">
-          <span className="font-hindi">साड़ियाँ</span>
+        <h1 className={`mt-2 text-4xl font-semibold text-[color:var(--wine)] sm:text-5xl ${hi ? "font-hindi" : "font-display"}`}>
+          {t("साड़ियाँ", "Sarees")}
         </h1>
-        <p className="font-hindi mt-1 text-foreground/70">अपनी पसंद चुनें — WhatsApp पर ऑर्डर करें।</p>
+        <p className={`mt-1 text-foreground/70 ${hi ? "font-hindi" : ""}`}>
+          {t("अपनी पसंद चुनें — WhatsApp पर ऑर्डर करें।", "Choose your favourite — order on WhatsApp.")}
+        </p>
       </div>
 
-      {/* Category chips */}
       <div className="mt-6 -mx-4 overflow-x-auto px-4">
         <div className="flex w-max gap-3 pb-2">
-          <Chip active={!activeCat} onClick={() => setActiveCat(undefined)} label="सभी" emoji="🛍️" />
+          <Chip
+            active={!activeCat}
+            onClick={() => setActiveCat(undefined)}
+            label={t("सभी", "All")}
+            emoji="🛍️"
+            hi={hi}
+          />
           {categories.map((c) => (
             <Chip
               key={c.slug}
               active={activeCat === c.slug}
               onClick={() => setActiveCat(c.slug)}
-              label={c.hindi}
+              label={t(c.hindi, c.title)}
               emoji={c.emoji}
+              hi={hi}
             />
           ))}
         </div>
       </div>
 
-      {/* Price buckets */}
       <div className="mt-3 flex flex-wrap gap-2">
         {priceBuckets.map((b) => (
           <button
@@ -72,12 +82,11 @@ function SareesPage() {
                 : "bg-[color:var(--peach)]/40 text-[color:var(--wine)] hover:bg-[color:var(--peach)]/60"
             }`}
           >
-            {b.emoji} <span className="font-hindi">{b.label}</span>
+            {b.emoji} {b.label}
           </button>
         ))}
       </div>
 
-      {/* Grid */}
       <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {filtered.map((p, i) => (
           <ProductCard key={p.id} p={p} index={i} />
@@ -85,8 +94,8 @@ function SareesPage() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="font-hindi mt-12 text-center text-foreground/70">
-          इस फ़िल्टर में अभी कुछ नहीं है। कृपया दूसरा चुनें।
+        <p className={`mt-12 text-center text-foreground/70 ${hi ? "font-hindi" : ""}`}>
+          {t("इस फ़िल्टर में अभी कुछ नहीं है। कृपया दूसरा चुनें।", "Nothing here yet. Please try another filter.")}
         </p>
       )}
     </div>
@@ -98,11 +107,13 @@ function Chip({
   onClick,
   label,
   emoji,
+  hi,
 }: {
   active: boolean;
   onClick: () => void;
   label: string;
   emoji: string;
+  hi: boolean;
 }) {
   return (
     <button
@@ -114,7 +125,7 @@ function Chip({
       }`}
     >
       <span className="text-base">{emoji}</span>
-      <span className="font-hindi">{label}</span>
+      <span className={hi ? "font-hindi" : ""}>{label}</span>
     </button>
   );
 }

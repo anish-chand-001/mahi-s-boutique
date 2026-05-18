@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import type { Category } from "@/lib/products";
+import { useLang } from "@/lib/lang";
 
 export function CategoryCard({ cat, index = 0 }: { cat: Category; index?: number }) {
+  const { t, lang } = useLang();
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -28,10 +30,10 @@ export function CategoryCard({ cat, index = 0 }: { cat: Category; index?: number
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[color:var(--wine)]/90 via-[color:var(--wine)]/30 to-transparent p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-hindi text-lg font-semibold text-white drop-shadow">
-                {cat.emoji} {cat.hindi}
+              <p className={`text-lg font-semibold text-white drop-shadow ${lang === "hi" ? "font-hindi" : ""}`}>
+                {cat.emoji} {t(cat.hindi, cat.title)}
               </p>
-              <p className="text-xs text-white/80">{cat.title}</p>
+              <p className="text-xs text-white/80">{lang === "hi" ? cat.title : cat.hindi}</p>
             </div>
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/95 text-[color:var(--wine)] shadow">
               →
