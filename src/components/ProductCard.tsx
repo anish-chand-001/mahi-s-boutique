@@ -1,9 +1,14 @@
 import { motion } from "motion/react";
 import { waLink } from "@/lib/whatsapp";
 import type { Product } from "@/lib/products";
+import { useLang } from "@/lib/lang";
 
 export function ProductCard({ p, index = 0 }: { p: Product; index?: number }) {
-  const msg = `नमस्ते Mahi Sarees! मुझे यह डिज़ाइन चाहिए: ${p.name} (₹${p.price}) — कोड ${p.id}`;
+  const { t, lang } = useLang();
+  const msg = t(
+    `नमस्ते Mahi Sarees! मुझे यह डिज़ाइन चाहिए: ${p.name} (₹${p.price}) — कोड ${p.id}`,
+    `Hello Mahi Sarees! I'd like this design: ${p.name} (₹${p.price}) — code ${p.id}`,
+  );
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -28,10 +33,10 @@ export function ProductCard({ p, index = 0 }: { p: Product; index?: number }) {
         )}
       </div>
       <div className="p-4">
-        <p className="font-hindi text-base font-semibold text-[color:var(--wine)]">
-          {p.hindi}
+        <p className={`text-base font-semibold text-[color:var(--wine)] ${lang === "hi" ? "font-hindi" : ""}`}>
+          {t(p.hindi, p.name)}
         </p>
-        <p className="text-xs text-muted-foreground">{p.name}</p>
+        <p className="text-xs text-muted-foreground">{lang === "hi" ? p.name : p.hindi}</p>
         <div className="mt-2 flex items-end justify-between gap-2">
           <p className="font-display text-2xl font-bold text-[color:var(--wine)]">
             ₹{p.price.toLocaleString("en-IN")}
@@ -41,10 +46,10 @@ export function ProductCard({ p, index = 0 }: { p: Product; index?: number }) {
           href={waLink(msg)}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-base font-semibold text-white shadow-md transition-transform active:scale-[0.98]"
+          className={`mt-3 flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-base font-semibold text-white shadow-md transition-transform active:scale-[0.98] ${lang === "hi" ? "font-hindi" : ""}`}
           style={{ backgroundColor: "var(--whatsapp)" }}
         >
-          <span className="font-hindi">मुझे चाहिए</span>
+          {t("मुझे चाहिए", "I want this")}
           <span aria-hidden>→</span>
         </a>
       </div>
